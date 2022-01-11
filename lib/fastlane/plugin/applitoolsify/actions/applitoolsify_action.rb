@@ -6,6 +6,14 @@ module Fastlane
     class ApplitoolsifyAction < Action
       def self.run(params)
         UI.message("The applitoolsify plugin is working!")
+        UI.message("Parameter Input Path: #{params[:applitoolsify_input]} >")
+        UI.message("Parameter Output Path: > #{params[:applitoolsify_output]}")
+
+        input = params[:applitoolsify_input]
+        output = params[:applitoolsify_output]
+
+        r = Helper::ApplitoolsifyHelper.applitoolsify(input, output)
+        UI.message("r : #{r}")
       end
 
       def self.description
@@ -32,6 +40,20 @@ module Fastlane
           #                      description: "A description of your option",
           #                         optional: false,
           #                             type: String)
+          FastlaneCore::ConfigItem.new(key: :applitoolsify_input,
+                                       env_name: "APPLITOOLSIFY_INPUT",
+                                       description: "Path to your original file to modify",
+                                       optional: false,
+                                       type: String,
+                                       verify_block: proc do |value|
+                                         UI.user_error!("Could not find file at path '#{File.expand_path(value)}'") unless File.exist?(value)
+                                         UI.user_error!("'#{value}' doesn't seem to be an valid file") unless value.end_with?(".ipa") || value.end_with?(".app")
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :applitoolsify_output,
+                                       env_name: "APPLITOOLSIFY_OUTPUT_NAME",
+                                       description: "The name of the resulting file",
+                                       optional: false,
+                                       type: String),
         ]
       end
 

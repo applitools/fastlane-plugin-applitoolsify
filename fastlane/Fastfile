@@ -1,3 +1,5 @@
+opt_out_usage=1
+
 lane :test do
-  applitoolsify
+  applitoolsify applitoolsify_input: './awesomeswift.app', applitoolsify_output: './awesomeswift2.app'
 end
