@@ -7,13 +7,20 @@ module Fastlane
       def self.run(params)
         UI.message("The applitoolsify plugin is working!")
         UI.message("Parameter Input Path: #{params[:applitoolsify_input]} >")
-        UI.message("Parameter Output Path: > #{params[:applitoolsify_output]}")
 
         input = params[:applitoolsify_input]
         output = params[:applitoolsify_output]
+        if output.nil?
+          output = input
+          UI.message("Parameter Output Empty using Input to Overwrite: > #{output}")
+        else
+          UI.message("Parameter Output Path: > #{params[:applitoolsify_output]}")
+          FileUtils.cp(input, output)
+        end
 
-        r = Helper::ApplitoolsifyHelper.applitoolsify(input, output)
-        UI.message("r : #{r}")
+        app_name = File.basename(input)
+        Helper::ApplitoolsifyHelper.applitoolsify(output, app_name)
+        UI.message("The applitoolsify plugin finish working!")
       end
 
       def self.description
@@ -52,7 +59,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :applitoolsify_output,
                                        env_name: "APPLITOOLSIFY_OUTPUT_NAME",
                                        description: "The name of the resulting file",
-                                       optional: false,
+                                       optional: true,
                                        type: String),
         ]
       end
