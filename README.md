@@ -12,41 +12,30 @@ fastlane add_plugin applitoolsify
 
 ## About applitoolsify
 
-Add Applitools SDKs to ipa and app iOS apps as fastlane-plugin
-
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+Add Applitools SDKs (UFG_lib.xcframework) to iOS apps as fastlane-plugin
 
 ## Example
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
-
-## Run tests for this plugin
-
-To run both the tests, and code style validation, run
-
-```
-rake
-```
-
-To automatically fix many of the styling issues, use
-```
-rubocop -a
-```
-
-## Issues and Feedback
-
-For any other issues and feedback about this plugin, please submit it to this repository.
-
-## Troubleshooting
-
-If you have trouble using plugins, check out the [Plugins Troubleshooting](https://docs.fastlane.tools/plugins/plugins-troubleshooting/) guide.
-
 ## Using _fastlane_ Plugins
 
 For more information about how the `fastlane` plugin system works, check out the [Plugins documentation](https://docs.fastlane.tools/plugins/create-plugin/).
 
+Adding lib into app-file, require path to your app-file:
+```
+applitoolsify applitoolsify_input: './some.app'
+```
+For debug purposes you can store original file as is, by providing parameter where will to put app with lib:
+```
+applitoolsify applitoolsify_input: './before.app', applitoolsify_output: './after.app'
+```
+
 ## About _fastlane_
 
 _fastlane_ is the easiest way to automate beta deployments and releases for your iOS and Android apps. To learn more, check out [fastlane.tools](https://fastlane.tools).
+
+### fastline-docs links:
+- Install Fastline https://docs.fastlane.tools/#getting-started
+- Add Plugin https://docs.fastlane.tools/plugins/using-plugins/#add-a-plugin-to-your-project
+- Run tasks https://docs.fastlane.tools/plugins/using-plugins/#run-with-plugins
