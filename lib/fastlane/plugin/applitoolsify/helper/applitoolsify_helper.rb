@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'fastlane_core/ui/ui'
 require 'fileutils'
 require 'zip'
@@ -36,7 +37,7 @@ module Fastlane
         url = 'https://applitools.jfrog.io/artifactory/ufg-mobile/UFG_lib.xcframework.zip'
         filename = File.basename(url)
         where = File.expand_path(filename, tmpdir)
-        open(url) {|cloud| File.write(where, cloud.read) } unless File.exist?(where)
+        OpenURI::open_uri(url) {|cloud| File.write(where, cloud.read) } unless File.exist?(where)
         where
       end
 

@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   # since this would cause a circular dependency
 
   # spec.add_dependency 'your-dependency', '~> 1.0.0'
+  spec.add_dependency 'open-uri', '~> 0.1', '>= 0.1.0'
 
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('fastlane', '>= 2.199.0')
