@@ -58,6 +58,11 @@ module Fastlane
       end
 
       def self.get_new_path(zip_path, app_name)
+        extname = File.extname(app_name)
+        if extname === '.ipa'
+          basename = File.basename(app_name, extname)
+          return File.join('Payload', "#{basename}.app", 'Frameworks', zip_path.to_s)
+        end
         if zip_path.to_s.start_with?('__MACOSX')
           File.join(zip_path.to_s.split('/').insert(1, app_name, 'Frameworks'))
         else
